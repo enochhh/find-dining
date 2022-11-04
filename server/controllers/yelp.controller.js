@@ -54,6 +54,22 @@ export const getReviews = (req, res) => {
     })
 }
 
+export const getBusinessDetails = (req, res) => {
+    let businessID = req.params.id;
+
+    const query = `${businessID}`;
+    axios.get(`https://api.yelp.com/v3/businesses/${query}`, {
+        headers: {
+            Authorization: `Bearer 1_QBgwym57lxZWK3UpSE-ozoEUVIaAJ0wdUfaRqZZn1G-PsRDaIcZOuG11ayT-y8Nm4PIHet6cnIngd1D-DdEL75GEX1uHQ-_FEmsBi1b4-fI7dCn4PKgPn-wv3IYHYx`
+        } 
+    }).then(response => {
+        res.send(response.data);
+    }).catch(error => {
+        console.log(error);
+        console.log(req.params);
+    })
+}
+
 
 
 
