@@ -1,16 +1,8 @@
 import axios from 'axios';
-export const search = (req, res) => {
-    // let locationQuery = "Arcadia,CA";
-    // let termQuery = "starbucks"
 
+export const search = (req, res) => {
     let locationQuery = req.params.location;
     let termQuery = req.params.term;
-  
-    // if (req.body.location) {
-    //     locationQuery = `&location=${req.body.location}`;
-    // } else {
-    //     locationQuery=`&latitude=${req.body.latitude}&longitude=${req.body.longitude}`;
-    // }
 
     const query = `search?term=${termQuery}&location=${locationQuery}`;
     axios.get(`https://api.yelp.com/v3/businesses/${query}` , {
@@ -21,7 +13,17 @@ export const search = (req, res) => {
         res.send(response.data.businesses.map((business) => {
             return {
                 name: business.name,
+                url: business.url,
+                rating: business.rating,
                 id: business.id,
+                price: business.price,
+                is_closed: business.is_closed,
+                categories: business.categories,
+                image: business.image_url,
+                location: business.location,
+                distance: business.distance,
+                transactions: business.transactions,
+                coordinates: business.coordinates
             }
         }))
         console.log(req.params);
